@@ -117,7 +117,7 @@ ollama pull mxbai-embed-large
 
 ```bash
 git clone https://github.com/mrambiguous8/my_ragfood_database
-cd rag-food
+cd my_ragfood_database
 ```
 
 ### 2. Install Python dependencies
