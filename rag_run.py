@@ -33,17 +33,21 @@ new_items = [item for item in food_data if item['id'] not in existing_ids]
 if new_items:
     print(f"🆕 Adding {len(new_items)} new documents to Chroma...")
     for item in new_items:
-        # Enhance text with region/type
-        enriched_text = item["text"]
-        if "region" in item:
-            enriched_text += f" This food is popular in {item['region']}."
-        if "type" in item:
-            enriched_text += f" It is a type of {item['type']}."
+        # Combine multiple fields for richer context
+        combined_text = f"""Name: {item['name']}
+Category: {item['category']} ({item['category_group']})
+Origin: {item['origin']}
+Description: {item['description']}
+Ingredients: {', '.join(item.get('ingredients', []))}
+Preparation: {item.get('preparation_method', 'N/A')}
+Nutritional Highlights: {item.get('nutritional_highlights', 'N/A')}
+Cultural Significance: {item.get('cultural_significance', 'N/A')}
+Dietary Classifications: {', '.join(item.get('dietary_classifications', []))}"""
 
-        emb = get_embedding(enriched_text)
+        emb = get_embedding(combined_text)
 
         collection.add(
-            documents=[item["text"]],  # Use original text as retrievable context
+            documents=[combined_text],  # Use combined text as retrievable context
             embeddings=[emb],
             ids=[item["id"]]
         )
