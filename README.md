@@ -116,7 +116,7 @@ ollama pull mxbai-embed-large
 ### 1. Clone or download this repo
 
 ```bash
-git clone https://github.com/yourname/rag-food
+git clone https://github.com/mrambiguous8/my_ragfood_database
 cd rag-food
 ```
 
